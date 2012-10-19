@@ -58,7 +58,7 @@
             <div id="zoom"></div>
             <h5>Census</h5>
             <div>State: <span id="state-fips"></span></div>
-            <div>County: <span id="count-fips"></span></div>
+            <div>County: <span id="county-fips"></span></div>
             <div>Tract: <span id="tract-fips"></span></div>
             <div>Blockgroup: <span id="blockgroup-fips"></span></div>
             <div>Block: <span id="block-fips"></span></div>
@@ -125,9 +125,11 @@
               center.lat + '&longitude=' + center.lng + '&format=jsonp&callback=?';
 
         $.getJSON(url, function(data){
-          console.log(data);
+          var fips = "               ";
+          if (data.Results.block.length) {
+            fips = data.Results.block[0].FIPS;
+          }
 
-          var fips = data.Results.block[0].FIPS;
           $('#state-fips').html(fips.substr(0, 2));
           $('#county-fips').html(fips.substr(2, 3));
           $('#tract-fips').html(fips.substr(5, 6));
