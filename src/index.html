@@ -83,13 +83,25 @@
           $bounds = $('#bounds'),
           $zoom = $('#zoom'),
           mapboxUrl = 'http://{s}.tiles.mapbox.com/v3/atogle.map-vo4oycva/{z}/{x}/{y}.png',
-          mabboxAttribution = '<a href="http://mapbox.com/about/maps" target="_blank">Terms & Feedback</a>',
-          mapboxLayer = new L.TileLayer(mapboxUrl, {maxZoom: 17, attribution: mabboxAttribution, subdomains: 'abcd'});
+          mabboxAttribution = 'Map data &copy; OpenStreetMap contributors, CC-BY-SA <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>',
+          mapboxLayer = new L.TileLayer(mapboxUrl, {maxZoom: 17, attribution: mabboxAttribution, subdomains: 'abcd'}),
+          centerMarker;
 
       map.setView(new L.LatLng(39.94870062390347, -75.20690917968749), 10).addLayer(mapboxLayer);
 
       function setCenter() {
         var center = map.getCenter();
+
+        if (centerMarker) {
+          centerMarker.setLatLng(center);
+        } else {
+          centerMarker = new L.CircleMarker(center, {
+            radius: 4,
+            opacity: 0.9
+          });
+          map.addLayer(centerMarker);
+        }
+
         $center.html(center.lat + ',<br>' + center.lng);
       }
 
