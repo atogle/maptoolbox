@@ -56,6 +56,12 @@
             <div id="bounds"></div>
             <h5>Zoom</h5>
             <div id="zoom"></div>
+            <h5>Census</h5>
+            <div>State: <span id="state-fips"></span></div>
+            <div>County: <span id="count-fips"></span></div>
+            <div>Tract: <span id="tract-fips"></span></div>
+            <div>Blockgroup: <span id="blockgroup-fips"></span></div>
+            <div>Block: <span id="block-fips"></span></div>
           </div>
         </div>
       </div>
@@ -113,6 +119,23 @@
         $zoom.html(map.getZoom());
       }
 
+      function setCensus() {
+        var center = map.getCenter(),
+            url = 'http://www.broadbandmap.gov/broadbandmap/census/block?latitude=' +
+              center.lat + '&longitude=' + center.lng + '&format=jsonp&callback=?';
+
+        $.getJSON(url, function(data){
+          console.log(data);
+
+          var fips = data.Results.block[0].FIPS;
+          $('#state-fips').html(fips.substr(0, 2));
+          $('#county-fips').html(fips.substr(2, 3));
+          $('#tract-fips').html(fips.substr(5, 6));
+          $('#blockgroup-fips').html(fips.substr(11, 1));
+          $('#block-fips').html(fips.substr(11, 4));
+        });
+      }
+
       map.on('move', function(evt) {
         setCenter();
         setBounds();
@@ -122,9 +145,14 @@
         setZoom();
       });
 
+      map.on('moveend', function(evt) {
+        setCensus();
+      });
+
       setCenter();
       setBounds();
       setZoom();
+      setCensus();
 
     </script>
 
