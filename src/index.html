@@ -73,19 +73,24 @@
     <script src="bootstrap-2.1.1/js/bootstrap.js"></script>
     <script src="leaflet-0.4.4/leaflet.js"></script>
     <script>
-      var map = new L.Map('map'),
+      var PRECISION = 6,
+          map = new L.Map('map'),
           $center = $('#center'),
           $bounds = $('#bounds'),
           $zoom = $('#zoom'),
-          mapboxUrl = 'http://{s}.tiles.mapbox.com/v3/atogle.map-vo4oycva/{z}/{x}/{y}.png',
-          mabboxAttribution = 'Map data &copy; OpenStreetMap contributors, CC-BY-SA <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>',
-          mapboxLayer = new L.TileLayer(mapboxUrl, {maxZoom: 17, attribution: mabboxAttribution, subdomains: 'abcd'}),
+          layerUrl = 'http://{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg',
+          layerAttribution = 'Tiles Courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png">',
+          layer = L.tileLayer(layerUrl, {
+            maxZoom: 19,
+            attribution: layerAttribution,
+            subdomains: ['otile1', 'otile2', 'otile3', 'otile4']
+          }),
           centerMarker;
 
-      map.setView(new L.LatLng(39.952467541125955, -75.16360759735107), 10).addLayer(mapboxLayer);
+      map.setView(new L.LatLng(39.952467541125955, -75.16360759735107), 10).addLayer(layer);
 
       function latLngToString(latLng) {
-        return '[' + latLng.lat.toFixed(4) + ', ' + latLng.lng.toFixed(4) + ']';
+        return '[' + latLng.lat.toFixed(PRECISION) + ', ' + latLng.lng.toFixed(PRECISION) + ']';
       }
 
       function boundsToString(bounds) {
