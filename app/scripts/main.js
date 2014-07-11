@@ -16,7 +16,7 @@
         }),
         centerMarker;
 
-    map.setView(new L.LatLng(39.952467, -75.163607), 10).addLayer(layer);
+    map.setView(new L.LatLng(39.952467, -75.163607), 11).addLayer(layer);
 
     function latLngToString(latLng) {
       return '[' + latLng.lat.toFixed(PRECISION) + ', ' + latLng.lng.toFixed(PRECISION) + ']';
