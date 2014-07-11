@@ -1,0 +1,39 @@
+body {
+  background: #fafafa;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #333;
+  font-size: 0.8em;
+}
+
+.map {
+  height: 200px;
+}
+
+.sidebar-container {
+  padding: 1em;
+
+  div strong {
+    display: inline-block;
+    margin-bottom: 0.5em;
+  }
+}
+
+.sidebar {
+
+}
+
+@media screen and (min-width: 48em) {
+  .main {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
+  .map {
+    height: 100%;
+  }
+
+
+}
